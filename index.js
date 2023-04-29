@@ -15,6 +15,7 @@ const con = mysql.createConnection({
 });
 
 app.get("/get", (req, res) => {
+  res.setHeader('Access-Control-Allow-Credentials','true')
   con.query("SELECT * FROM emp", (err, data) => {
     if (err) throw err;
     res.send(data);
@@ -22,6 +23,7 @@ app.get("/get", (req, res) => {
 });
 
 app.get('/search/:search',(req,res)=>{
+  res.setHeader('Access-Control-Allow-Credentials','true')
   const search = req.params.search
   console.log(search)
   const q = "SELECT * FROM emp WHERE name LIKE ?;" 
@@ -32,6 +34,7 @@ app.get('/search/:search',(req,res)=>{
 })
 
 app.delete('/delete/:id',(req,res)=>{
+  res.setHeader('Access-Control-Allow-Credentials','true')
   const q = "DELETE FROM emp where id = (?)"
   const id = req.params.id;
   con.query(q,id,(err,data)=>{
@@ -41,6 +44,7 @@ app.delete('/delete/:id',(req,res)=>{
 })
 
 app.get('/put/:id',(req,res)=>{
+  res.setHeader('Access-Control-Allow-Credentials','true')
   const id = req.params.id
   const q = "SELECT * FROM emp where id = ?"
   con.query(q,id,(err,data)=>{
@@ -50,6 +54,7 @@ app.get('/put/:id',(req,res)=>{
 })
 
 app.put('/put/:id',(req,res)=>{
+  res.setHeader('Access-Control-Allow-Credentials','true')
   const id = req.params.id
   const data = [
     req.body.name,
@@ -66,6 +71,7 @@ app.put('/put/:id',(req,res)=>{
 })
 
 app.post('/send',(req,res)=>{
+  res.setHeader('Access-Control-Allow-Credentials','true')
     const q = "INSERT INTO emp (name,role,salary,joined) VALUES (?)"
     const value = [
         req.body.name,
